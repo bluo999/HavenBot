@@ -1,4 +1,4 @@
-"""Main HavenBot script"""
+"""Main HavenBot Script"""
 
 import sys
 import os
@@ -15,20 +15,6 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
 bot = commands.Bot(command_prefix='!', description='Haven Bot')
-
-
-def restrict_channel(func):
-    """Decorator function that specifies the channel name must
-    be equal to the username of the command author."""
-
-    @wraps(func)
-    async def wrapper(*args, **kwargs):
-        ctx = args[1]
-        assert isinstance(ctx, commands.Context)
-        if ctx.channel.name == ctx.author.name:
-            return await func(*args, **kwargs)
-
-    return wrapper
 
 
 @bot.event
