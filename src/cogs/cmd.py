@@ -17,7 +17,7 @@ class CommandCog(Cog, name='Command'):
     def __init__(self, bot):
         self.bot = bot
 
-    @command(name='create')
+    @command(name='create-text')
     @has_role('ADMIN')
     @restrict_channel
     async def create_channel(self, ctx, channel_name):
@@ -47,7 +47,7 @@ class CommandCog(Cog, name='Command'):
 
     @command(name='delete-channel')
     @has_role('ADMIN')
-    async def rename_channel(self, ctx, channel_name):
+    async def delete_channel(self, ctx, channel_name):
         """Delete a text or voice channel."""
         channel = utils.get(ctx.guild.channels, name=channel_name)
         if channel is not None:
