@@ -3,7 +3,7 @@
 from discord import utils
 from discord.ext.commands import Cog, command, has_role
 
-from bot import restrict_channel
+from common import restrict_channel
 
 
 def setup(bot):
@@ -28,6 +28,7 @@ class CommandCog(Cog, name='Command'):
 
     @command(name='create-voice')
     @has_role('ADMIN')
+    @restrict_channel
     async def create_voice_channel(self, ctx, channel_name):
         """Create a new voice channel."""
         print(f'Creating new voice channel {channel_name}')
@@ -36,6 +37,7 @@ class CommandCog(Cog, name='Command'):
 
     @command(name='rename')
     @has_role('ADMIN')
+    @restrict_channel
     async def rename_channel(self, ctx, channel_name, new_channel_name):
         """Rename a text or voice channel."""
         channel = utils.get(ctx.guild.channels, name=channel_name)
@@ -47,6 +49,7 @@ class CommandCog(Cog, name='Command'):
 
     @command(name='delete-channel')
     @has_role('ADMIN')
+    @restrict_channel
     async def delete_channel(self, ctx, channel_name):
         """Delete a text or voice channel."""
         channel = utils.get(ctx.guild.channels, name=channel_name)
