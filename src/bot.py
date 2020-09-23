@@ -3,12 +3,10 @@
 import sys
 import os
 
-from functools import wraps
-
 from discord.ext import commands
 from dotenv import load_dotenv
 
-initial_extensions = ['cmd']
+initial_extensions = ['commands']
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')

@@ -1,4 +1,4 @@
-"""Commands cog (general channel management)"""
+"""Channels cog (general channel management)"""
 
 from discord import utils
 from discord.ext.commands import Cog, command, has_role
@@ -7,12 +7,12 @@ from common import restrict_channel
 
 
 def setup(bot):
-    """Load the Command cog."""
-    bot.add_cog(CommandCog(bot))
+    """Load the Channel cog."""
+    bot.add_cog(ChannelCog(bot))
 
 
-class CommandCog(Cog, name='Command'):
-    """Cog for basic commands."""
+class ChannelCog(Cog, name='Channel'):
+    """Cog for general channel magement."""
 
     def __init__(self, bot):
         self.bot = bot
