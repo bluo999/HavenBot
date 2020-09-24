@@ -6,7 +6,7 @@ import os
 from discord.ext import commands
 from dotenv import load_dotenv
 
-initial_extensions = ['commands']
+initial_extensions = ['channels']
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
