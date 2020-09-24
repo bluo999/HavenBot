@@ -58,3 +58,12 @@ class CommandCog(Cog, name='Command'):
             await ctx.send(f'Deleted channel {channel_name}')
         else:
             await ctx.send(f'Channel {channel_name} does not exist')
+
+    @command(name='quick-link')
+    @has_role('ADMIN')
+    @restrict_channel
+    async def create_quick_link(self, ctx):
+        """Creates an invite link that lasts for one minutes."""
+        channel = utils.get(ctx.guild.channels, name="test")
+        link = await channel.create_invite(max_age=60, max_uses=1)
+        await ctx.send(f'Invite link(lasts one minute): {link.url}')
