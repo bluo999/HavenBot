@@ -1,25 +1,25 @@
-"""Commands cog (general channel management)"""
+"""Channels cog (general channel management)"""
 
 from discord import utils
 from discord.ext.commands import Cog, command, has_role
 
-from common import restrict_channel
+from common import restrict_user
 
 
 def setup(bot):
-    """Load the Command cog."""
-    bot.add_cog(CommandCog(bot))
+    """Load the Channel cog."""
+    bot.add_cog(ChannelCog(bot))
 
 
-class CommandCog(Cog, name='Command'):
-    """Cog for basic commands."""
+class ChannelCog(Cog, name='Channel'):
+    """Cog for general channel magement."""
 
     def __init__(self, bot):
         self.bot = bot
 
     @command(name='create-text')
     @has_role('ADMIN')
-    @restrict_channel
+    @restrict_user
     async def create_channel(self, ctx, channel_name):
         """Create a new text channel."""
         print(f'Creating new channel: {channel_name}')
@@ -28,7 +28,7 @@ class CommandCog(Cog, name='Command'):
 
     @command(name='create-voice')
     @has_role('ADMIN')
-    @restrict_channel
+    @restrict_user
     async def create_voice_channel(self, ctx, channel_name):
         """Create a new voice channel."""
         print(f'Creating new voice channel {channel_name}')
@@ -37,7 +37,7 @@ class CommandCog(Cog, name='Command'):
 
     @command(name='rename')
     @has_role('ADMIN')
-    @restrict_channel
+    @restrict_user
     async def rename_channel(self, ctx, channel_name, new_channel_name):
         """Rename a text or voice channel."""
         channel = utils.get(ctx.guild.channels, name=channel_name)
@@ -49,7 +49,7 @@ class CommandCog(Cog, name='Command'):
 
     @command(name='delete-channel')
     @has_role('ADMIN')
-    @restrict_channel
+    @restrict_user
     async def delete_channel(self, ctx, channel_name):
         """Delete a text or voice channel."""
         channel = utils.get(ctx.guild.channels, name=channel_name)
