@@ -64,6 +64,6 @@ class CommandCog(Cog, name='Command'):
     @restrict_channel
     async def create_quick_link(self, ctx):
         """Creates an invite link that lasts for one minutes."""
-        channel = utils.get(ctx.guild.channels, name="test")
+        channel = utils.get(ctx.guild.channels, name=ctx.channel.name)
         link = await channel.create_invite(max_age=60, max_uses=1)
         await ctx.send(f'Invite link(lasts one minute): {link.url}')
