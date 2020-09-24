@@ -4,6 +4,7 @@ from functools import wraps
 
 from discord.ext import commands
 
+
 def restrict_channel(func):
     """Decorator function that specifies the command author username 
     be equal to the sys.argv[1]."""
