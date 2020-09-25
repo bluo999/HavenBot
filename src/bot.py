@@ -3,14 +3,11 @@
 import sys
 import os
 
+from config import CONFIG
+
 from discord.ext import commands
-from dotenv import load_dotenv
 
 initial_extensions = ['channels']
-
-load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
-GUILD = os.getenv('DISCORD_GUILD')
 
 bot = commands.Bot(command_prefix='!', description='Haven Bot')
 
@@ -26,4 +23,5 @@ if __name__ == '__main__':
     for extension in initial_extensions:
         bot.load_extension(extension)
 
-    bot.run(TOKEN)
+    print(CONFIG)
+    bot.run(CONFIG['Discord Info']['Token'])
