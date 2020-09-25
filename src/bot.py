@@ -1,16 +1,15 @@
 """Main HavenBot Script"""
-
-import sys
+import logging
 import os
+import sys
+
+import logger
 
 from discord.ext import commands
-from dotenv import load_dotenv
 
-initial_extensions = ['channels']
+from config import CONFIG
 
-load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
-GUILD = os.getenv('DISCORD_GUILD')
+initial_extensions = ['channels', 'messages']
 
 bot = commands.Bot(command_prefix='!', description='Haven Bot')
 
@@ -18,6 +17,7 @@ bot = commands.Bot(command_prefix='!', description='Haven Bot')
 @bot.event
 async def on_command_error(ctx, error):
     """Send the error to Discord chat."""
+    logging.error(error)
     await ctx.send(error)
 
 
@@ -26,4 +26,5 @@ if __name__ == '__main__':
     for extension in initial_extensions:
         bot.load_extension(extension)
 
-    bot.run(TOKEN)
+    logging.info(f'Starting bot with config: {CONFIG}')
+    bot.run(CONFIG['Discord Info']['Token'])

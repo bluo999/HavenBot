@@ -1,5 +1,7 @@
 """Channels cog (general channel management)"""
 
+import logging
+
 from discord import utils
 from discord.ext.commands import Cog, command, has_role
 
@@ -22,7 +24,6 @@ class ChannelCog(Cog, name='Channel'):
     @restrict_user
     async def create_channel(self, ctx, channel_name):
         """Create a new text channel."""
-        print(f'Creating new channel: {channel_name}')
         await ctx.guild.create_text_channel(channel_name)
         await ctx.send(f'Created text channel {channel_name}')
 
@@ -31,7 +32,6 @@ class ChannelCog(Cog, name='Channel'):
     @restrict_user
     async def create_voice_channel(self, ctx, channel_name):
         """Create a new voice channel."""
-        print(f'Creating new voice channel {channel_name}')
         await ctx.guild.create_voice_channel(channel_name)
         await ctx.send(f'Created voice channel {channel_name}')
 
