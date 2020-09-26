@@ -1,2 +1,4 @@
-.env
+discord.log
+config.ini
+
 __pycache__
