@@ -1,5 +1,4 @@
-"""Logger that outputs logs to stdout and keeps
-a file log"""
+"""Logger that outputs logs to stdout and keeps a file log."""
 
 import logging
 

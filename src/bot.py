@@ -9,7 +9,7 @@ from discord.ext import commands
 
 from config import CONFIG
 
-initial_extensions = ['channels', 'messages']
+initial_extensions = ['channels', 'messages', 'riot']
 ADMIN_ID = int(CONFIG['Discord Info']['AdminRoleID'])
 DISABLED_COMMANDS = CONFIG['Restrictions']['DisabledCommands'].split(',')
 
