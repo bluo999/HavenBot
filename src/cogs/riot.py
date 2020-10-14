@@ -1,4 +1,4 @@
-"""Riot cogs (using riot API)"""
+"""Riot cog (using riot API)"""
 
 import logging
 
@@ -33,7 +33,7 @@ class RiotCog(Cog, name='Riot'):
         self.bot = bot
 
     @command(name='set-username')
-    async def set_username(self, ctx, username):
+    async def set_username(self, ctx, riot_username):
         """Associate Riot username with Discord user."""
         author_id = ctx.message.author.id
         sql = """
@@ -53,7 +53,7 @@ class RiotCog(Cog, name='Riot'):
                 VALUES
                     (?, ?)
             """
-            cursor.execute(sql, (username, author_id))
+            cursor.execute(sql, (riot_username, author_id))
         else:
             # Update existing entry
             sql = """
@@ -63,16 +63,16 @@ class RiotCog(Cog, name='Riot'):
                     riot_id = ?
                 WHERE discord_id = ?
             """
-            cursor.execute(sql, (username, None, author_id))
+            cursor.execute(sql, (riot_username, None, author_id))
         conn.commit()
 
-        await ctx.send(f'Set {ctx.message.author}\'s Riot username to {username}')
+        await ctx.send(f'Set {ctx.message.author}\'s Riot username to {riot_username}')
 
-    @command(name='lookup')
+    @command(name='live')
     async def lookup(self, ctx, riot_username=None):
         """
-        Lookup Riot username. If not specified, lookup the username set by the
-        discord user in the database.
+        Lookup live game. If Riot user not specified, lookup the
+        Riot user set by the discord user in the database.
         """
         cursor = conn.cursor()
 
@@ -122,7 +122,9 @@ class RiotCog(Cog, name='Riot'):
                 raise
 
         game_mode = live_info['gameMode']
-        summoner = next(i for i in live_info['participants'] if i['summonerId'] == riot_id)
+        summoner = next(
+            i for i in live_info['participants'] if i['summonerId'] == riot_id
+        )
         champion = next(
             v
             for v in current_champ_list['data'].values()
