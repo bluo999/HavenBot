@@ -7,12 +7,12 @@ from discord.ext.commands import Cog
 
 
 def setup(bot):
-    """Load the message cog."""
+    """Load the message cog"""
     bot.add_cog(MessageCog(bot))
 
 
 class MessageCog(Cog, name='Message'):
-    """Cog to log new messages, edits, and deletes."""
+    """Cog to log new messages, edits, and deletes"""
 
     def __init__(self, bot):
         self.bot = bot

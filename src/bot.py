@@ -11,29 +11,39 @@ from config import CONFIG
 
 initial_extensions = ['channels', 'messages']
 ADMIN_ID = int(CONFIG['Discord Info']['AdminRoleID'])
+PREFIX = CONFIG['Discord Info']['Prefix']
 DISABLED_COMMANDS = CONFIG['Restrictions']['DisabledCommands'].split(',')
+RESTRICT_USERNAME = CONFIG['Restrictions']['Username']
+BOT_CHANNEL = CONFIG['Restrictions']['Channel']
 
-bot = commands.Bot(command_prefix='!', description='Haven Bot')
+bot = commands.Bot(command_prefix=PREFIX, description='Haven Bot')
 
 
 class DisabledCommandError(commands.CommandError):
-    """Disabled command was attempted to be called."""
+    """Disabled command was attempted to be called"""
 
     def __str__(self):
-        return 'This command is disabled.'
+        return 'This command is disabled'
 
 
 class AdminError(commands.CommandError):
-    """Non-admin tries to use a command."""
+    """Non-admin tries to use a command"""
 
     def __str__(self):
-        return 'You do not have permission.'
+        return 'You do not have permission'
+
+
+@bot.check
+async def globally_restrict_channel(ctx):
+    if BOT_CHANNEL == '' or BOT_CHANNEL == ctx.channel.id:
+        return True
+    else:
+        return False
 
 
 @bot.check
 async def globally_restrict_user(ctx):
-    username = CONFIG['Restrictions']['Username']
-    if username == '' or username == ctx.author.name:
+    if RESTRICT_USERNAME == '' or RESTRICT_USERNAME == ctx.author.name:
         return True
     else:  # Maybe eventually raise specific error
         return False
